@@ -15,12 +15,14 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllHeroes")]
         public async Task<ActionResult<List<SuperHero>>> Get()
         {
             return Ok(await _context.SuperHeroes.ToListAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetHeroById/{id}")]   //Custom route--> https://localhost:7002/api/SuperHero/GetHeroById/1
         public async Task<ActionResult<SuperHero>> Get(int id)
         {
             var hero = await _context.SuperHeroes.FindAsync(id);
@@ -30,6 +32,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+
         public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
         {
             _context.SuperHeroes.Add(hero);
@@ -55,7 +58,7 @@ namespace WebApplication1.Controllers
             return Ok(await _context.SuperHeroes.ToListAsync());
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //default route --- https://localhost:7002/api/SuperHero/3
         public async Task<ActionResult<List<SuperHero>>> Delete(int id)
         {
             var dbHero = await _context.SuperHeroes.FindAsync(id);
